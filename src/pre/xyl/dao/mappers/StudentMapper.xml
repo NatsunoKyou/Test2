@@ -1,0 +1,18 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pre.xyl.dao.mappers.StudentMapper">
+    <select id="quryStuAndCard" parameterType="int" resultMap="Stu_Card">
+        select * from tb_stu where id= #{id}
+    </select>
+    <select id="queryCardById" parameterType="int" resultType="pre.xyl.pojo.Card">
+        select  *  from tb_card where card_id= #{cardId}
+    </select>
+
+    <resultMap id="Stu_Card" type="pre.xyl.pojo.Student">
+        <id property="id" column="id"/>
+        <result property="stuName" column="stu_name"/>
+        <association property="card" javaType="pre.xyl.pojo.Card" column="card_id" select="queryCardById">
+        </association>
+    </resultMap>
+</mapper>
